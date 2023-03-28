@@ -21,11 +21,11 @@ jobs:
        npm i 
        CI=false && npm run build
 
-    # - name: Copy folder content recursively to remote VPS
-    #   uses: garygrossgarten/github-action-scp@release
-    #   with:
-    #       local: dist
-    #       remote: /var/www/www.taraka-uc.com/public_html/
-    #       host: ${{ secrets.HOST }}
-    #       username: ${{ secrets.USER }}
-    #       password: ${{ secrets.PASSWORD }}
+    - name: Copy folder content recursively to remote VPS
+      uses: garygrossgarten/github-action-scp@release
+      with:
+          local: build
+          remote: /var/www/www.pngondemand.com/public_html/
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
