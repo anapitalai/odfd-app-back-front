@@ -6,8 +6,8 @@ name: Deployment of Front End and Back End
 on: push
                   
 jobs:
-  fix_environment:
-    environment: raliku
+  # fix_environment:
+  #   environment: raliku
   #   env:
   #     NODE_ENV= ${{ secrets.NODE_ENV }}
   #     PORT= ${{ secrets.PORT }}
@@ -17,15 +17,15 @@ jobs:
   backend-job:
     runs-on: self-hosted    
     steps:   
-    # - name: Get code from local to remote runner
-    #   uses: actions/checkout@v3
-    # - name: Install nodejs 16
-    #   uses: actions/setup-node@v3
-    #   with:                             
-    #     node-version: 16
-    # - name: Install dependencies for the backend
-    #   run: |
-    #     npm i
+    - name: Get code from local to remote runner
+      uses: actions/checkout@v3
+    - name: Install nodejs 16
+      uses: actions/setup-node@v3
+      with:                             
+        node-version: 16
+    - name: Install dependencies for the backend
+      run: |
+        npm i
     
 
       #  CI=false && npm run build
