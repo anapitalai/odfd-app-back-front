@@ -10,10 +10,10 @@ jobs:
     steps: 
     - name: Get code from local to gh runner
       uses: actions/checkout@v3
-    - name: Install nodejs 18
+    - name: Install nodejs 16
       uses: actions/setup-node@v3
       with:                             
-        node-version: 18
+        node-version: 16
     - name: Install dependencies
       run: | 
        npm i
