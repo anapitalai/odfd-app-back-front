@@ -1,0 +1,31 @@
+name: Deployment of FE and BE
+# on:
+#   branches:[master]
+# pull_request:
+#   branches:[master]
+on: push                    
+jobs:
+  installs:
+    runs-on: self-hosted    
+    steps: 
+    - name: Get code from local to gh runner
+      uses: actions/checkout@v3
+    - name: Install nodejs ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:                             
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: | 
+       npm ci
+       cd frontend
+       npm ci
+       npm run build
+
+    # - name: Copy folder content recursively to remote VPS
+    #   uses: garygrossgarten/github-action-scp@release
+    #   with:
+    #       local: dist
+    #       remote: /var/www/www.taraka-uc.com/public_html/
+    #       host: ${{ secrets.HOST }}
+    #       username: ${{ secrets.USER }}
+    #       password: ${{ secrets.PASSWORD }}
