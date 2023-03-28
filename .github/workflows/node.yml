@@ -39,11 +39,13 @@ jobs:
     - name: Install nodejs 18
       uses: actions/setup-node@v3
       with:                             ##configs for nodejs 
-        node-version: 18
+        node-version: 16
     - name: Install dependencies
-      run: npm ci
-    - name: Run build
-      run: npm run build
+      run: |
+         cd frontend
+         npm i
+         npm run build
+         
     - name: Copy build folder to hosting location
       uses: garygrossgarten/github-action-scp@release
       with:
