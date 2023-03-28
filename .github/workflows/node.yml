@@ -19,7 +19,7 @@ jobs:
        npm i
        cd frontend
        npm i 
-       ci=false && npm run build
+       CI=false && npm run build
 
     # - name: Copy folder content recursively to remote VPS
     #   uses: garygrossgarten/github-action-scp@release
