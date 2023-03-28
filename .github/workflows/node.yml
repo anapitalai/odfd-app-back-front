@@ -16,9 +16,9 @@ jobs:
         node-version: 16
     - name: Install dependencies
       run: | 
-       npm i
+       npm ci
        cd frontend
-       npm i
+       npm ci
        npm run build
 
     # - name: Copy folder content recursively to remote VPS
