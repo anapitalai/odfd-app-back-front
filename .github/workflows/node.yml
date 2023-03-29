@@ -123,7 +123,7 @@ jobs:
        cd frontend
        npm i 
        CI=false && npm run build
-       
+       pwd
        sudo cp /var/www/www.pngondemand.com/actions-runner/_work/ralikushop/ralikushop/frontend/build -R /var/www/www.pngondemand.com/public_html
 #     - name: Copy folder content recursively to remote VPS
 #       uses: garygrossgarten/github-action-scp@release
