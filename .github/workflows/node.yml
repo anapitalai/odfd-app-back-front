@@ -32,7 +32,7 @@ jobs:
 
 
   frontend-job:
-    # needs: backend-job
+    needs: backend-job
     runs-on: self-hosted
     steps: 
     - name: Get code from local to github runner
