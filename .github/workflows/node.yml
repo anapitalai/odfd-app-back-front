@@ -123,12 +123,12 @@ jobs:
        cd frontend
        npm i 
        CI=false && npm run build
-#     - name: Copy folder content recursively to remote VPS
-#       uses: garygrossgarten/github-action-scp@release
-#       with:
-#           local: build
-#           remote: /var/www/www.www.pngondemand.com/public_html/
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USER }}
-#           password: ${{ secrets.PASSWORD }}
+    - name: Copy folder content recursively to remote VPS
+      uses: garygrossgarten/github-action-scp@release
+      with:
+          local: /root/var/www/www.pngondemand.com/actions-runner/_work/ralikushop/ralikushop/frontend/build
+          remote: /var/www/www.www.pngondemand.com/public_html/
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
 
