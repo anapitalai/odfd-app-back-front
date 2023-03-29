@@ -57,8 +57,8 @@ jobs:
         path: ~/.npm
         key: deps-node-modules-${{hashFiles('**/package-lock.json')}} 
          npm i
-         CI=false npm run build
-         
+         CI=false && npm run build
+         ##_work/ralikushop/ralikushop/frontend/
     - name: Copy build folder to hosting location
       uses: garygrossgarten/github-action-scp@release
       with:
