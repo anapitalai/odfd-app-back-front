@@ -106,8 +106,8 @@ name: Deployment of FE and BE
 #   branches:[master]
 on: push                    
 jobs:
-  fix_environment:
-    environment: raliku
+#   fix_environment:
+#     environment: raliku
   build:
     runs-on: self-hosted    
     steps: 
