@@ -10,8 +10,9 @@
 
 ## Resource in the database that needs modelling,users,restaurants,bars,stalls,favourites
 Mongoose is the Object Data Mapper that is used to communications with the Mongo DB
+>> Entiy Relationship Diagram
+![ERD](https://github.com/anapitalai/odfd-app-back-front/blob/main/uploads/ERD.png)
 ### User Model
-![ERD](https://github.com/anapitalai/odfd-app-back-front/blob/main/uploads/ERD.jpg)
 const userSchema = mongoose.Schema(
   {
     name: {
