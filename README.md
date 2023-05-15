@@ -1,6 +1,6 @@
 # ODFD APP
 
-> App platform built with the MERN/PERN stack & Redux.
+> App platform built with the MERN/MPRP/PERN stack & Redux for state management.
 
 ![screenshot](https://github.com/anapitalai/odfd-app-back-front/blob/main/uploads/odfd_image.jpg)
 
@@ -8,20 +8,12 @@
 - Modify the user Model, add a field if a user is signing up, is he/she a
   seller or a customer
 
-## Frontend
-### Home/Welcome Screen
-
-Logo-Home  Search  Bars   Restaurants   Stalls   Favourites Sign-In  Cart
-                                                               
-- Recommended For YOU
-- Popular Food In the Location
-- Top Restaurants
-- Popular bar in the Location
-- Top food stall you might like
-
 ## Resource in the database that needs modelling,users,restaurants,bars,stalls,favourites
 Mongoose is the Object Data Mapper that is used to communications with the Mongo DB
 ### User Model
+![ERD](https://github.com/anapitalai/odfd-app-back-front/blob/main/uploads/ERD.jpg)
+const userSchema = mongoose.Schema(
+  {
     name: {
       type: String,
       required: true,
@@ -57,95 +49,30 @@ Mongoose is the Object Data Mapper that is used to communications with the Mongo
 )
 
 ### Restaurant Model
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
+const restaurantSchema = mongoose.Schema(
+  {
     name: {
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-      required: false,
-    },
     description: {
       type: String,
       required: true,
+      unique: true,
     },
-    reviews: [reviewSchema],
-    rating: {
-      type: Number,
+    image: {
+      type: String,
       required: true,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+    }
   },
   {
     timestamps: true,
   }
 )
 
-### Product Model
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    reviews: [reviewSchema],
-    rating: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    countInStock: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
 
 ### Bar Model
-const productSchema = mongoose.Schema(
+const barSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -160,38 +87,9 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    brand: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
     description: {
       type: String,
       required: true,
-    },
-    reviews: [reviewSchema],
-    rating: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    countInStock: {
-      type: Number,
-      required: true,
-      default: 0,
     },
   },
   {
@@ -199,64 +97,34 @@ const productSchema = mongoose.Schema(
   }
 )
 
-### Favourite Model
-const productSchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    reviews: [reviewSchema],
-    rating: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    countInStock: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
 
 ### Stall Model
-const productSchema = mongoose.Schema(
+const stallSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+  {
+    timestamps: true,
+  }
+  }
+)
+
+### Product Model Template
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -309,7 +177,91 @@ const productSchema = mongoose.Schema(
   }
 )
 
+## Order Model Template
+const orderSchema = mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    orderItems: [
+      {
+        name: { type: String, required: true },
+        qty: { type: Number, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Product',
+        },
+      },
+    ],
+    shippingAddress: {
+      address: { type: String, required: true },
+      city: { type: String, required: true },
+      postalCode: { type: String, required: true },
+      country: { type: String, required: true },
+    },
+    paymentMethod: {
+      type: String,
+      required: true,
+    },
+    paymentResult: {
+      id: { type: String },
+      status: { type: String },
+      update_time: { type: String },
+      email_address: { type: String },
+    },
+    taxPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    shippingPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    isPaid: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    paidAt: {
+      type: Date,
+    },
+    isDelivered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
 
+
+## Frontend
+### Home/Welcome Screen
+
+Logo-Home  Search  Bars   Restaurants   Stalls   Favourites Sign-In  Cart
+                                                               
+- Recommended For YOU
+- Popular Food In the Location
+- Top Restaurants
+- Popular bar in the Location
+- Top food stall you might like
 
 
 ## Features
