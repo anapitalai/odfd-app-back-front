@@ -2,7 +2,7 @@
 
 > App platform built with the MERN/PERN stack & Redux.
 
-![screenshot](https://github.com/bradtraversy/proshop_mern/blob/master/uploads/Screen%20Shot%202020-09-29%20at%205.50.52%20PM.png)
+![screenshot](https://github.com/bradtraversy/proshop_mern/blob/master/uploads/odfd_image.jpg)
 
 ## Backend
 - Modify the user Model, add a field if a user is signing up, is he/she a
