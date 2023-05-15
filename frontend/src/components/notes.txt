@@ -1,0 +1,9 @@
+Home Screen or Welcome Screen
+
+Logo-Home  Search  Bars   Restaurants   Stalls   Favourites Sign-In  Cart
+                                                               
+               Recommended For YOU
+               Popular Food In the Location
+               top Restaurants
+               Popular bar in the Location
+               top food stall you might like

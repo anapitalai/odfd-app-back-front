@@ -21,6 +21,16 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    isCustomer: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isSeller: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

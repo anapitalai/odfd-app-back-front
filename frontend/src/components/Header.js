@@ -15,13 +15,12 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(logout())
   }
-
   return (
     <header>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>PNG ON DEMAND is online now</Navbar.Brand>
+            <Navbar.Brand>ODFD APP</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -30,6 +29,26 @@ const Header = () => {
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/restaurant'>
+                <Nav.Link>
+                  <i className='fas fa-utensils'></i> Restaurants
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/bar'>
+                <Nav.Link>
+                  <i className='fas fa-beer'></i> Bars
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/stall'>
+                <Nav.Link>
+                  <i className='fas fa-drumstick-bite'></i> Stalls
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/favourite'>
+                <Nav.Link>
+                  <i className='fas fa-heart'></i> Favourites
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
