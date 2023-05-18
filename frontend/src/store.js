@@ -10,6 +10,17 @@ import {
   productReviewCreateReducer,
   productTopRatedReducer,
 } from './reducers/productReducers'
+
+import {
+  foodListReducer,
+  foodDetailsReducer,
+  // productDeleteReducer,
+  // productCreateReducer,
+  // productUpdateReducer,
+  // productReviewCreateReducer,
+  // productTopRatedReducer,
+} from './reducers/foodReducers'
+
 import { cartReducer } from './reducers/cartReducers'
 import {
   userLoginReducer,
@@ -30,6 +41,13 @@ import {
 } from './reducers/orderReducers'
 
 const reducer = combineReducers({
+  foodList: foodListReducer,
+  foodDetails: foodDetailsReducer,
+  // productDelete: productDeleteReducer,
+  // productCreate: productCreateReducer,
+  // productUpdate: productUpdateReducer,
+  // productReviewCreate: productReviewCreateReducer,
+  // productTopRated: productTopRatedReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,

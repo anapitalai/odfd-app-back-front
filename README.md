@@ -7,12 +7,48 @@
 ## Backend
 - Modify the user Model, add a field if a user is signing up, is he/she a
   seller or a customer
+## Structure and flow of Backend
+- environment variable come from .env file
+- DB connection-config/db.js ---------> server.js
+- controller --------> routers --------> server.js
 
 ## Resource in the database that needs modelling,users,restaurants,bars,stalls,favourites
 Mongoose is the Object Data Mapper that is used to communications with the Mongo DB
->> Entiy Relationship Diagram
+>> Entity Relationship Diagram
 ![ERD](https://github.com/anapitalai/odfd-app-back-front/blob/main/uploads/ERD.png)
 ### User Model
+
+## Delete later
+users:
+- phoneNumber
+- sex
+- dateofbirth
+
+restaurants/stalls/bars:
+- entity_type
+- location (gps/geocode)
+- services
+- features
+- food_menu
+- drinks_menu
+
+menu:
+- id
+- name
+- description
+- serving_size
+- rating
+
+rating:
+- id
+- date_rated
+- title
+- comment
+- user
+- restaurant/bar/stall
+- stars
+
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -252,18 +288,11 @@ const orderSchema = mongoose.Schema(
   }
 )
 
-
-## Frontend
-### Home/Welcome Screen
-
-Logo-Home  Search  Bars   Restaurants   Stalls   Favourites Sign-In  Cart
-                                                               
-- Recommended For YOU
-- Popular Food In the Location
-- Top Restaurants
-- Popular bar in the Location
-- Top food stall you might like
-
+## Using POSTMAN for testing
+- create a new collection called ODFD Collection
+- Create the requests
+- Create environment variables
+  
 
 ## Features
 - Full featured shopping cart
