@@ -46,11 +46,11 @@ const Header = () => {
                   <i className='fas fa-drumstick-bite'></i> Stalls
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/favourite'>
+              {/* <LinkContainer to='/favourite'>
                 <Nav.Link>
                   <i className='fas fa-heart'></i> Favourites
                 </Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>

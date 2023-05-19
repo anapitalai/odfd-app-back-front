@@ -2,39 +2,39 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
-import Product from '../components/Product'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import Paginate from '../components/Paginate'
-import ProductCarousel from '../components/ProductCarousel'
-import Meta from '../components/Meta'
-import { listProducts } from '../actions/productActions'
+import Bar from '../../components/bar/Bar'
+import Message from '../../components/Message'
+import Loader from '../../components/Loader'
+import Paginate from '../../components/Paginate'
+import BarCarousel from '../../components/bar/BarCarousel'
+import Meta from '../../components/Meta'
+import { listBars } from '../../actions/barActions'
 
-const HomeScreen = ({ match }) => {
+const BarScreen = ({ match }) => {
   const keyword = match.params.keyword
 
   const pageNumber = match.params.pageNumber || 1
 
   const dispatch = useDispatch()
 
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+  const barList = useSelector((state) => state.barList)
+  const { loading, error, bars, page, pages } = barList
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber))
+    dispatch(listBars(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
 
   return (
     <>
       <Meta />
       {!keyword ? (
-        <ProductCarousel />
+        <BarCarousel />
       ) : (
         <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
       )}
-      <h1>Latest Foods</h1>
+      <h1>Bars</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -42,9 +42,9 @@ const HomeScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
+            {bars.map((bar) => (
+              <Col key={bar._id} sm={12} md={6} lg={4} xl={3}>
+                <Bar bar={bar} />
               </Col>
             ))}
           </Row>
@@ -59,4 +59,6 @@ const HomeScreen = ({ match }) => {
   )
 }
 
-export default HomeScreen
+export default BarScreen
+
+

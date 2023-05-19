@@ -25,32 +25,32 @@ const getRestaurants = asyncHandler(async (req, res) => {
   res.json({ restaurants, page, pages: Math.ceil(count / pageSize) })
 })
 
-// @desc    Fetch single product
+// @desc    Fetch single restaurant
 // @route   GET /api/products/:id
 // @access  Public
-const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
+const getRestaurantById = asyncHandler(async (req, res) => {
+  const restaurant = await Restaurant.findById(req.params.id)
 
-  if (product) {
-    res.json(product)
+  if (restaurant) {
+    res.json(restaurant)
   } else {
     res.status(404)
-    throw new Error('Product not found')
+    throw new Error('Restaurant not found')
   }
 })
 
-// @desc    Delete a product
-// @route   DELETE /api/products/:id
+// @desc    Delete a restaurant
+// @route   DELETE /api/restaurants/:id
 // @access  Private/Admin
-const deleteProduct = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
+const deleteRestaurant = asyncHandler(async (req, res) => {
+  const restaurant = await Restaurant.findById(req.params.id)
 
-  if (product) {
-    await product.remove()
-    res.json({ message: 'Product removed' })
+  if (restaurant) {
+    await restaurant.remove()
+    res.json({ message: 'Restaurant removed' })
   } else {
     res.status(404)
-    throw new Error('Product not found')
+    throw new Error('Restaurant not found')
   }
 })
 
@@ -60,12 +60,12 @@ const deleteProduct = asyncHandler(async (req, res) => {
 const createRestaurant = asyncHandler(async (req, res) => {
   const restaurant = new Restaurant({
     name: 'Sample name',
-    price: 0,
+    food_menu: 'Some food menu' ,
     user: req.user._id,
     image: '/images/sample.jpg',
-    brand: 'Sample brand',
+    drinks_menu: 'Some drink menu',
     category: 'Sample category',
-    countInStock: 0,
+    rating: 0,
     numReviews: 0,
     description: 'Sample description',
   })
@@ -74,55 +74,54 @@ const createRestaurant = asyncHandler(async (req, res) => {
   res.status(201).json(createdRestaurant)
 })
 
-// @desc    Update a product
-// @route   PUT /api/products/:id
+// @desc    Update a restaurant
+// @route   PUT /api/restaurants/:id
 // @access  Private/Admin
-const updateProduct = asyncHandler(async (req, res) => {
+const updateRestaurant = asyncHandler(async (req, res) => {
   const {
     name,
-    price,
+    food_menu,
+    drinks_menu,
+    location,
     description,
     image,
-    brand,
-    category,
-    countInStock,
   } = req.body
 
-  const product = await Product.findById(req.params.id)
+  const restaurant = await Restaurant.findById(req.params.id)
 
-  if (product) {
-    product.name = name
-    product.price = price
-    product.description = description
-    product.image = image
-    product.brand = brand
-    product.category = category
-    product.countInStock = countInStock
+  if (restaurant) {
+    restaurant.name = name
+    restaurant.location = location
+    restaurant.description = description
+    restaurant.image = image
+    restaurant.food_menu = food_menu
+    restaurant.drinks_menu = drinks_menu
+ 
 
-    const updatedProduct = await product.save()
-    res.json(updatedProduct)
+    const updatedRestaurant = await restaurant.save()
+    res.json(updatedRestaurant)
   } else {
     res.status(404)
-    throw new Error('Product not found')
+    throw new Error('Restaurant not found')
   }
 })
 
 // @desc    Create new review
 // @route   POST /api/products/:id/reviews
 // @access  Private
-const createProductReview = asyncHandler(async (req, res) => {
+const createRestaurantReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body
 
-  const product = await Product.findById(req.params.id)
+  const restaurant = await Restaurant.findById(req.params.id)
 
-  if (product) {
-    const alreadyReviewed = product.reviews.find(
+  if (restaurant) {
+    const alreadyReviewed = restaurant.reviews.find(
       (r) => r.user.toString() === req.user._id.toString()
     )
 
     if (alreadyReviewed) {
       res.status(400)
-      throw new Error('Product already reviewed')
+      throw new Error('Restaurant already reviewed')
     }
 
     const review = {
@@ -132,37 +131,37 @@ const createProductReview = asyncHandler(async (req, res) => {
       user: req.user._id,
     }
 
-    product.reviews.push(review)
+    restaurant.reviews.push(review)
 
-    product.numReviews = product.reviews.length
+    restaurant.numReviews = restaurant.reviews.length
 
-    product.rating =
-      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-      product.reviews.length
+    restaurant.rating =
+      restaurant.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      restaurant.reviews.length
 
-    await product.save()
+    await restaurant.save()
     res.status(201).json({ message: 'Review added' })
   } else {
     res.status(404)
-    throw new Error('Product not found')
+    throw new Error('Restaurant not found')
   }
 })
 
-// @desc    Get top rated products
-// @route   GET /api/products/top
+// @desc    Get top rated restaurants
+// @route   GET /api/restaurants/top
 // @access  Public
-const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ rating: -1 }).limit(3)
+const getTopRestaurants = asyncHandler(async (req, res) => {
+  const restaurants = await Restaurant.find({}).sort({ rating: -1 }).limit(3)
 
-  res.json(products)
+  res.json(restaurants)
 })
 
 export {
   getRestaurants,
-  getProductById,
-  deleteProduct,
+  getRestaurantById,
+  deleteRestaurant,
   createRestaurant,
-  updateProduct,
-  createProductReview,
-  getTopProducts,
+  updateRestaurant,
+  createRestaurantReview,
+  getTopRestaurants,
 }

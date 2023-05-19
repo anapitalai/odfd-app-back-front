@@ -18,7 +18,7 @@ Mongoose is the Object Data Mapper that is used to communications with the Mongo
 ![ERD](https://github.com/anapitalai/odfd-app-back-front/blob/main/uploads/ERD.png)
 ### User Model
 
-## Delete later
+### Delete later
 users:
 - phoneNumber
 - sex
@@ -48,245 +48,78 @@ rating:
 - restaurant/bar/stall
 - stars
 
-
-const userSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isCustomer: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isSeller: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
+### Users Model
+- mobile ???
+- sex ???
+- dob ???
+- name
+- email
+- password
+- isAdmin
+- timestamp
+### Stalls Model
+- name
+- email
+- password
+- isAdmin
+- timestamp
+### Bars Model
+- name
+- email
+- password
+- isAdmin
+- timestamp
 ### Restaurant Model
-const restaurantSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    }
-  },
-  {
-    timestamps: true,
-  }
-)
+- user
+- name
+- image 
+- service
+- drinks_menu
+- food_menu
+- location
+- features
+- reviews
+- rating
+- numReviews
+- timestamp
 
+### Foods Model
+- user
+- name
+- image
+- brand
+- category
+- description
+- reviews
+- rating
+- numReviews
+- timestamp
 
-### Bar Model
-const barSchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
-
-### Stall Model
-const stallSchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-  {
-    timestamps: true,
-  }
-  }
-)
-
-### Product Model Template
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    reviews: [reviewSchema],
-    rating: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    countInStock: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
-## Order Model Template
-const orderSchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    orderItems: [
-      {
-        name: { type: String, required: true },
-        qty: { type: Number, required: true },
-        image: { type: String, required: true },
-        price: { type: Number, required: true },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: 'Product',
-        },
-      },
-    ],
-    shippingAddress: {
-      address: { type: String, required: true },
-      city: { type: String, required: true },
-      postalCode: { type: String, required: true },
-      country: { type: String, required: true },
-    },
-    paymentMethod: {
-      type: String,
-      required: true,
-    },
-    paymentResult: {
-      id: { type: String },
-      status: { type: String },
-      update_time: { type: String },
-      email_address: { type: String },
-    },
-    taxPrice: {
-      type: Number,
-      required: true,
-      default: 0.0,
-    },
-    shippingPrice: {
-      type: Number,
-      required: true,
-      default: 0.0,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-      default: 0.0,
-    },
-    isPaid: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    paidAt: {
-      type: Date,
-    },
-    isDelivered: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    deliveredAt: {
-      type: Date,
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
+### Product Model
+- user
+- name
+- image
+- brand
+- category
+- description
+- reviews
+- rating
+- numReviews
+- timestamp
+### Orders Model
+- user
+- orderItems
+- shippingAddress
+- paymentMethod
+- paymentResult
+- taxPrice
+- shippingPrice
+- totalPrice
+- isPaid
+- paidAt
+- isDelivered
+- deliveredAt
+- timestamp
 
 ## Using POSTMAN for testing
 - create a new collection called ODFD Collection
@@ -380,10 +213,10 @@ Sample User Logins
 admin@example.com (Admin)
 123456
 
-john@example.com (Customer)
+anapitalai@example.com (Customer)
 123456
 
-jane@example.com (Customer)
+cikosi@example.com (Customer)
 123456
 ```
 

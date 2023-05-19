@@ -1,4 +1,0 @@
-create restaurant Model
-create bar Model
-food stall Model
-

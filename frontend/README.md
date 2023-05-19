@@ -11,6 +11,9 @@ Logo-Home  Search  Bars   Restaurants   Stalls   Favourites Sign-In  Cart
 - Popular bar in the Location
 - Top food stall you might like
 
+### Stalls Screen
+- Stall Component ------> StallScreen -----> Single Stall Details
+
 ## Redux(Reducers,actions and store.js)
 > Redux Pattern
 

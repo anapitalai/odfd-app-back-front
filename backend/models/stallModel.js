@@ -16,7 +16,7 @@ const reviewSchema = mongoose.Schema(
   }
 )
 
-const productSchema = mongoose.Schema(
+const stallModel = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,17 +31,21 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    brand: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
     description: {
       type: String,
-      required: true,
+      required: false,
+    },
+    drinks_menu: {
+      type: String,
+      required: false,
+    },
+    food_menu: {
+      type: String,
+      required: false,
+    },
+    location: {
+      type: Array,
+      required: false,
     },
     reviews: [reviewSchema],
     rating: {
@@ -54,22 +58,12 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    countInStock: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
   },
   {
     timestamps: true,
   }
 )
 
-const Product = mongoose.model('Product', productSchema)
+const Stall = mongoose.model('Stall', stallModel)
 
-export default Product
+export default Stall

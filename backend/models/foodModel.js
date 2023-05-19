@@ -41,7 +41,7 @@ const foodSchema = mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
+      required: false,
     },
     reviews: [reviewSchema],
     rating: {
