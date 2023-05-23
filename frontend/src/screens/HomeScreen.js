@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
-import Product from '../components/Product'
+import Food from '../components/Food'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
-import ProductCarousel from '../components/ProductCarousel'
+import FoodCarousel from '../components/food/FoodCarousel'
 import Meta from '../components/Meta'
 
-import { listProducts } from '../actions/productActions'
+import { listFoods } from '../actions/foodActions'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -18,24 +18,24 @@ const HomeScreen = ({ match }) => {
 
   const dispatch = useDispatch()
 
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+  const foodList = useSelector((state) => state.foodList)
+  const { loading, error, foods, page, pages } = foodList
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber))
+    dispatch(listFoods(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
 
   return (
     <>
       <Meta />
       {!keyword ? (
-        <ProductCarousel />
+        <FoodCarousel />
       ) : (
         <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
       )}
-      <h1>Latest Foods</h1>
+      <h1>Favourite Foods</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -43,9 +43,54 @@ const HomeScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
+            {foods.map((food) => (
+              <Col key={food._id} sm={12} md={6} lg={4} xl={3}>
+                <Food food={food} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
+      )}
+
+      {/* xxdx */}
+      <h1>Favourite Restaurants</h1>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <>
+          <Row>
+            {foods.map((food) => (
+              <Col key={food._id} sm={12} md={6} lg={4} xl={3}>
+                <Food food={food} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
+      )}
+{/* xxx */}
+<h1>Favourite Bars</h1>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <>
+          <Row>
+            {foods.map((food) => (
+              <Col key={food._id} sm={12} md={6} lg={4} xl={3}>
+                <Food food={food} />
               </Col>
             ))}
           </Row>

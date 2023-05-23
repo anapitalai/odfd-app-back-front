@@ -1,23 +1,23 @@
 import express from 'express'
 const router = express.Router()
 import {
-  getProducts,
-  getProductById,
-  deleteProduct,
-  createProduct,
-  updateProduct,
-  createProductReview,
-  getTopProducts,
-} from '../controllers/productController.js'
+  getBars,
+  getBarById,
+  createBar,
+  deleteBar,
+  updateBar,
+  createBarReview,
+  getTopBars,
+} from '../controllers/barController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
-router.route('/').get(getProducts).post(protect, admin, createProduct)
-router.route('/:id/reviews').post(protect, createProductReview)
-router.get('/top', getTopProducts)
+router.route('/').get(getBars).post(protect, admin, createBar)
+router.route('/:id/reviews').post(protect, createBarReview)
+router.get('/top', getTopBars)
 router
   .route('/:id')
-  .get(getProductById)
-  .delete(protect, admin, deleteProduct)
-  .put(protect, admin, updateProduct)
+  .get(getBarById)
+  .delete(protect, admin, deleteBar)
+  .put(protect, admin, updateBar)
 
 export default router

@@ -24,7 +24,7 @@ const Food = ({ food }) => {
           />
         </Card.Text>
 
-        <Card.Text as='h3'>${food.price}</Card.Text>
+        <Card.Text as='h3'>K{food.price}</Card.Text>
       </Card.Body>
     </Card>
   )

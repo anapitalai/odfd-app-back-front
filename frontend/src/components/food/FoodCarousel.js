@@ -4,16 +4,16 @@ import { Carousel, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Loader'
 import Message from '../Message'
-import { listTopStalls } from '../../actions/stallActions'
+import { listTopFoods } from '../../actions/foodActions'
 
-const StallCarousel = () => {
+const FoodCarousel = () => {
   const dispatch = useDispatch()
 
-  const stallTopRated = useSelector((state) => state.stallTopRated)
-  const { loading, error, stalls } = stallTopRated
+  const foodTopRated = useSelector((state) => state.foodTopRated)
+  const { loading, error, foods } = foodTopRated
 
   useEffect(() => {
-    dispatch(listTopStalls())
+    dispatch(listTopFoods())
   }, [dispatch])
 
   return loading ? (
@@ -22,13 +22,13 @@ const StallCarousel = () => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <Carousel pause='hover' className='bg-dark'>
-      {stalls.map((stall) => (
-        <Carousel.Item key={stall._id}>
-          <Link to={`/stall/${stall._id}`}>
-            <Image src={stall.image} alt={stall.name} fluid />
+      {foods.map((food) => (
+        <Carousel.Item key={food._id}>
+          <Link to={`/food/${food._id}`}>
+            <Image src={food.image} alt={food.name} fluid />
             <Carousel.Caption className='carousel-caption'>
               <h2>
-                {stall.name} ({stall.description})
+                {food.name} ({food.description})
               </h2>
             </Carousel.Caption>
           </Link>
@@ -38,4 +38,4 @@ const StallCarousel = () => {
   )
 }
 
-export default StallCarousel
+export default FoodCarousel

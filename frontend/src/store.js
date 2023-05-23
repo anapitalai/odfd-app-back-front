@@ -20,6 +20,16 @@ import {
 	stallReviewCreateReducer,
 	stallTopRatedReducer
 } from './reducers/stallReducers';
+//food Reducer
+import {
+	foodListReducer,
+	foodDetailsReducer,
+	foodDeleteReducer,
+	foodCreateReducer,
+	foodUpdateReducer,
+	foodReviewCreateReducer,
+	foodTopRatedReducer
+} from './reducers/foodReducers';
 //Bar Reducer
 import {
 	barListReducer,
@@ -70,7 +80,14 @@ const reducer = combineReducers({
 	stallUpdate: stallUpdateReducer,
 	stallReviewCreate: stallReviewCreateReducer,
 	stallTopRated: stallTopRatedReducer,
-
+	//foods
+	foodList: foodListReducer,
+	foodDetails: foodDetailsReducer,
+	foodDelete: foodDeleteReducer,
+	foodCreate: foodCreateReducer,
+	foodUpdate: foodUpdateReducer,
+	foodReviewCreate: foodReviewCreateReducer,
+	foodTopRated: foodTopRatedReducer,
 	//Bars
 	barList: barListReducer,
 	barDetails: barDetailsReducer,

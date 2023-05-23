@@ -24,7 +24,7 @@ const Bar = ({ bar }) => {
           />
         </Card.Text>
 
-        <Card.Text as='h6'>{bar.description}</Card.Text>
+        <Card.Text as='h6'>{bar.location}</Card.Text>
       </Card.Body>
     </Card>
   )

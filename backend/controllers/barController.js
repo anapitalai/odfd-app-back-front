@@ -18,11 +18,11 @@ const getBars = asyncHandler(async (req, res) => {
     : {}
 
   const count = await Bar.countDocuments({ ...keyword })
-  const products = await Bar.find({ ...keyword })
+  const bars = await Bar.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
 
-  res.json({ products, page, pages: Math.ceil(count / pageSize) })
+  res.json({ bars, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc    Fetch single bar
@@ -60,12 +60,12 @@ const deleteBar = asyncHandler(async (req, res) => {
 const createBar = asyncHandler(async (req, res) => {
   const bar = new Bar({
     name: 'Sample name',
+    entity_type: 'Entity type',
     user: req.user._id,
     image: '/images/sample.jpg',
-    category: 'Sample category',
+    service:'Provide beers',
     countInStock: 0,
     numReviews: 0,
-    description: 'Sample description',
   })
 
   const createdBar = await bar.save()
@@ -81,17 +81,20 @@ const updateBar = asyncHandler(async (req, res) => {
     location,
     description,
     image,
-    countInStock,
+    drinks_menu,
+    features,
+    services,
+    food_menu,
   } = req.body
 
   const bar = await Bar.findById(req.params.id)
 
   if (bar) {
     bar.name = name
-    bar.price = price
-    bar.description = description
+    bar.drinks_menu = drinks_menu
+    bar.food_menu = description
     bar.image = image
-    bar.location = location
+    bar.services = entity_type
 
     const updatedBar = await bar.save()
     res.json(updatedBar)

@@ -28,7 +28,7 @@ const BarCarousel = () => {
             <Image src={bar.image} alt={bar.name} fluid />
             <Carousel.Caption className='carousel-caption'>
               <h2>
-                {bar.name} ({bar.description})
+                {bar.name} ({bar.name})
               </h2>
             </Carousel.Caption>
           </Link>

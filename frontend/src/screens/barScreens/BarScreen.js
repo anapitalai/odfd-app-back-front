@@ -20,6 +20,7 @@ const BarScreen = ({ match }) => {
   const barList = useSelector((state) => state.barList)
   const { loading, error, bars, page, pages } = barList
 
+  
   useEffect(() => {
     dispatch(listBars(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])

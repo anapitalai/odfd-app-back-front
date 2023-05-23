@@ -21,6 +21,7 @@ import OrderListScreen from './screens/OrderListScreen';
 // Just added
 import StallScreen from './screens/stallScreens/StallScreen';
 import BarScreen  from './screens/barScreens/BarScreen';
+import FoodScreen from './screens/foodScreens/FoodScreen';
 import RestaurantScreen from './screens/restaurantScreens/RestaurantScreen';
 const App = () => {
 	return (
@@ -50,6 +51,7 @@ const App = () => {
 					{/* All Stall Routes */}
 					<Route path="/stall" component={StallScreen} />					
 					<Route path="/bar" component={BarScreen} />
+					<Route path="/food" component={FoodScreen} />
 					<Route path="/restaurant" component={RestaurantScreen} />
 
 				</Container>
