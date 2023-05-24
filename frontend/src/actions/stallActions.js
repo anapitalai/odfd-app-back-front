@@ -186,7 +186,7 @@ export const updateStall = (stall) => async (dispatch, getState) => {
   }
 }
 
-export const createProductReview = (stallId, review) => async (
+export const createStallReview = (stallId, review) => async (
   dispatch,
   getState
 ) => {

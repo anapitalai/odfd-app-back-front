@@ -13,7 +13,7 @@ const restaurants = [
   },
   {
     name: 'Banglara Restaurant',
-    image: '/images/blanglara.jpg',
+    image: '/images/banglara.jpg',
     entity_type:'Some entity name',
     service:'Provide delicious menus, bars opens till late',
     features:'Overlooking the harbout',

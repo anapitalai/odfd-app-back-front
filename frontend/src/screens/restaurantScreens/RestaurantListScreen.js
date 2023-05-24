@@ -2,53 +2,53 @@ import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import Paginate from '../components/Paginate'
+import Message from '../../components/Message'
+import Loader from '../../components/Loader'
+import Paginate from '../../components/Paginate'
 import {
-  listProducts,
-  deleteProduct,
-  createProduct,
-} from '../actions/productActions'
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+  listRestaurants,
+  deleteRestaurant,
+  createRestaurant,
+} from '../../actions/restaurantActions'
+import { RESTAURANT_CREATE_RESET } from '../../constants/restaurantConstants'
 
-const ProductListScreen = ({ history, match }) => {
+const RestaurantListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1
 
   const dispatch = useDispatch()
 
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+  const restaurantList = useSelector((state) => state.restaurantList)
+  const { loading, error, restaurants, page, pages } = restaurantList
 
-  const productDelete = useSelector((state) => state.productDelete)
+  const restaurantDelete = useSelector((state) => state.restaurantDelete)
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = productDelete
+  } = restaurantDelete
 
-  const productCreate = useSelector((state) => state.productCreate)
+  const restaurantCreate = useSelector((state) => state.restaurantCreate)
   const {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    product: createdProduct,
-  } = productCreate
+    restaurant: createdRestaurant,
+  } = restaurantCreate
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
-    dispatch({ type: PRODUCT_CREATE_RESET })
+    dispatch({ type: RESTAURANT_CREATE_RESET })
 
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login')
     }
 
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct._id}/edit`)
+      history.push(`/admin/restaurantlist/${createdRestaurant._id}/edit`)
     } else {
-      dispatch(listProducts('', pageNumber))
+      dispatch(listRestaurants('', pageNumber))
     }
   }, [
     dispatch,
@@ -56,29 +56,29 @@ const ProductListScreen = ({ history, match }) => {
     userInfo,
     successDelete,
     successCreate,
-    createdProduct,
+    createdRestaurant,
     pageNumber,
   ])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
-      dispatch(deleteProduct(id))
+      dispatch(deleteRestaurant(id))
     }
   }
 
-  const createProductHandler = () => {
-    dispatch(createProduct())
+  const createRestaurantHandler = () => {
+    dispatch(createRestaurant())
   }
 
   return (
     <>
       <Row className='align-items-center'>
         <Col>
-          <h1>Products</h1>
+          <h1>Restaurants</h1>
         </Col>
         <Col className='text-right'>
-          <Button className='my-3' onClick={createProductHandler}>
-            <i className='fas fa-plus'></i> Create Product
+          <Button className='my-3' onClick={createRestaurantHandler}>
+            <i className='fas fa-plus'></i> Create Restaurant
           </Button>
         </Col>
       </Row>
@@ -104,15 +104,15 @@ const ProductListScreen = ({ history, match }) => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>${product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
+              {restaurants.map((restaurant) => (
+                <tr key={restaurant._id}>
+                  <td>{restaurant._id}</td>
+                  <td>{restaurant.name}</td>
+                  <td>${restaurant.price}</td>
+                  <td>{restaurant.category}</td>
+                  <td>{restaurant.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                    <LinkContainer to={`/admin/restaurantlist/${restaurant._id}/edit`}>
                       <Button variant='light' className='btn-sm'>
                         <i className='fas fa-edit'></i>
                       </Button>
@@ -120,7 +120,7 @@ const ProductListScreen = ({ history, match }) => {
                     <Button
                       variant='danger'
                       className='btn-sm'
-                      onClick={() => deleteHandler(product._id)}
+                      onClick={() => deleteHandler(restaurant._id)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
@@ -136,4 +136,4 @@ const ProductListScreen = ({ history, match }) => {
   )
 }
 
-export default ProductListScreen
+export default RestaurantListScreen

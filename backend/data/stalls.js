@@ -6,7 +6,7 @@ const stalls = [
       'A great stall to eat at',
     rating: 0,
     numReviews: 0,
-  },
+  }
   
 
 ]

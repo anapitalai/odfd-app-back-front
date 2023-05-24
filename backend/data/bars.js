@@ -1,7 +1,7 @@
 const bars = [
   {
-    name: 'Eriku Restaurant',
-    image: '/images/erestaurant.jpg',
+    name: 'Sports Man Bar',
+    image: '/images/sportsmanbar.jpg',
     entity_type:'Some entity name',
     service:'Provide delicious menus',
     features:'Affordable and good location',
@@ -12,8 +12,8 @@ const bars = [
     numReviews: 0,
   },
   {
-    name: 'Banglara Restaurant',
-    image: '/images/blanglara.jpg',
+    name: 'Melo Bar',
+    image: '/images/melobar.jpg',
     entity_type:'Some entity name',
     service:'Provide delicious menus, bars opens till late',
     features:'Overlooking the harbout',
