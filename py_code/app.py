@@ -4,6 +4,8 @@ import numpy as np
 import pickle
 from flask_pymongo import PyMongo,ObjectId
 from flask_cors import CORS
+import pandas as pd
+import json
 
 
 
@@ -30,16 +32,18 @@ def get():
 
 @app.route('/favourites',methods=['POST'])
 def predict_favourites():
-  """Function that performs restaurant recommendations for a user"""
-      
-    # Load Trained Model
+
+
+      """Function that performs restaurant recommendations for a user"""
+      user_id= request.json['users_id']
+      # Load Trained Model
       model = pickle.load(open('model/recommender_model.sav', 'rb'))
       
-    # Access data from Db
-      data = pd.read_csv('raw_ids.csv')
-      data_names = pd.read_csv('raw.csv')
+      # Access data from Db
+      data = pd.read_csv('model/raw_ids.csv')
+      data_names = pd.read_csv('model/raw.csv')
       
-     # Dictionary key value item for restaurants  
+      # Dictionary key value item for restaurants  
       rest_dict = data_names[['restaurant_names','restaurant_id']]
       rest_dict = rest_dict.drop_duplicates()
       rest_dict = rest_dict.set_index('restaurant_id')['restaurant_names'].to_dict()
@@ -64,8 +68,10 @@ def predict_favourites():
       top_5 = np.array(predicted_ratings[0:6])
       
       # Create and return json
+      #top_5 = jsonify(list(top_5[:,0]))
       top_5 = json.dumps(list(top_5[:,0]))
-      return jsonify({"results:top_5"})
+
+      return jsonify({"results":top_5})
 
 # def createFavourites():
 #       id=db.favourites.insert_one({

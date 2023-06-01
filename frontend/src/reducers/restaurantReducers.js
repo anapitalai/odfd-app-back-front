@@ -50,7 +50,7 @@ export const restaurantListReducer = (state = { restaurants: [] }, action) => {
 }
 
 export const restaurantDetailsReducer = (
-  state = { restaurant: { reviews: [] } },
+  state = { restaurant: { reviews: [],location:{coordinates:[]} } },
   action
 ) => {
   switch (action.type) {

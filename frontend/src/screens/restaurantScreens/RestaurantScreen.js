@@ -136,7 +136,7 @@ const RestaurantScreen = ({ history, match}) => {
                   />
                 </ListGroup.Item>
                      
-                      <ListGroup.Item>Map Location:{restaurant._id}
+                      <ListGroup.Item>Map Location:{restaurant.location.coordinates}
                       </ListGroup.Item>  
 
                 <ListGroup.Item>
@@ -214,10 +214,8 @@ const RestaurantScreen = ({ history, match}) => {
 
       </Col>
         <Col md={8}>
-          <MapComponent />
+          <MapComponent longitude={restaurant.location.coordinates[0]} latitude={restaurant.location.coordinates[1]} />
           
-          
-
         </Col>
       </Row>
 
