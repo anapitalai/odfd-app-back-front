@@ -58,10 +58,7 @@ def predict_favourites():
       for restaurant in unrated_restaurants:
           predicted_rating = model.predict(user_id, restaurant).est
           predicted_ratings.append((restaurant, predicted_rating))
-          
-      # Sort the predicted ratings in descending order
-      #predicted_ratings.sort(key=lambda x: x[1], reverse=True)
-      
+                
       # Sort the predicted ratings in descending order
       predicted_ratings.sort(key=lambda x: x[1], reverse=True)
       top_5 = np.array(predicted_ratings[0:6])
