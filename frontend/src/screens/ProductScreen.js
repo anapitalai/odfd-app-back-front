@@ -32,6 +32,7 @@ const ProductScreen = ({ history, match }) => {
     error: errorProductReview,
   } = productReviewCreate
 
+  useEffect(()=>console.log(product),[product])
   useEffect(() => {
     if (successProductReview) {
       setRating(0)

@@ -16,9 +16,23 @@ const reviewSchema = mongoose.Schema(
   }
   )
 
+  const pointSchema = mongoose.Schema({
+  type: {
+    type: String,
+    enum:['Point'],
+    default:'Point'
+  
+  },
+  coordinates: {
+    type: [Number],
+    required : true,
+    index: '2dsphere'
+  },
+});
+
   const restaurantSchema = mongoose.Schema(
     {
-      user: {
+      users_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User',
@@ -31,13 +45,21 @@ const reviewSchema = mongoose.Schema(
         type: String,
         required: false,
       },
-      services: {
+      description:{
         type: String,
-        required: false,
+        required: false
       },
-      features: {
-        type: String,
-        required: false,
+      // location:pointSchema,
+      location: {
+        type: {
+          type: String,
+          enum: ['Point'],
+          default:'Point'
+        },
+        coordinates: {
+          type: [Number],
+          index: '2dsphere'
+        },
       },
       food_menu: {
         type: String,
@@ -45,10 +67,6 @@ const reviewSchema = mongoose.Schema(
       },
       drinks_menu: {
         type: String,
-        required: false,
-      },
-      location: {
-        type: Array,
         required: false,
       },
       reviews: [reviewSchema],

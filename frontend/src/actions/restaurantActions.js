@@ -18,6 +18,9 @@ import {
   RESTAURANT_CREATE_REVIEW_REQUEST,
   RESTAURANT_CREATE_REVIEW_SUCCESS,
   RESTAURANT_CREATE_REVIEW_FAIL,
+  RESTAURANT_CREATE_FAVOURITE_REQUEST,
+  RESTAURANT_CREATE_FAVOURITE_SUCCESS,
+  RESTAURANT_CREATE_FAVOURITE_FAIL,
   RESTAURANT_TOP_REQUEST,
   RESTAURANT_TOP_SUCCESS,
   RESTAURANT_TOP_FAIL,
@@ -221,6 +224,46 @@ export const createRestaurantReview = (restaurantId, review) => async (
     }
     dispatch({
       type: RESTAURANT_CREATE_REVIEW_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const createRestaurantFavourite = (restaurantId, favourite) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: RESTAURANT_CREATE_FAVOURITE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        // Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.post(`http://localhost/predict/${restaurantId}/favourites`, favourite, config)
+
+    dispatch({
+      type: RESTAURANT_CREATE_FAVOURITE_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: RESTAURANT_CREATE_FAVOURITE_FAIL,
       payload: message,
     })
   }

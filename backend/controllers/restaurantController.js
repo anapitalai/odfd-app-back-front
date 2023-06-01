@@ -26,7 +26,7 @@ const getRestaurants = asyncHandler(async (req, res) => {
 })
 
 // @desc    Fetch single restaurant
-// @route   GET /api/products/:id
+// @route   GET /api/restaurants/:id
 // @access  Public
 const getRestaurantById = asyncHandler(async (req, res) => {
   const restaurant = await Restaurant.findById(req.params.id)
@@ -64,7 +64,7 @@ const createRestaurant = asyncHandler(async (req, res) => {
     user: req.user._id,
     image: '/images/sample.jpg',
     drinks_menu: 'Some drink menu',
-    category: 'Sample category',
+    location: {type:'Point',coordinates:[0,0]},
     rating: 0,
     numReviews: 0,
     description: 'Sample description',
@@ -107,7 +107,7 @@ const updateRestaurant = asyncHandler(async (req, res) => {
 })
 
 // @desc    Create new review
-// @route   POST /api/products/:id/reviews
+// @route   POST /api/restaurants/:id/reviews
 // @access  Private
 const createRestaurantReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body

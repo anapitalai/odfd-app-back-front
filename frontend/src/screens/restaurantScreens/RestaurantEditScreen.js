@@ -15,8 +15,7 @@ const RestaurantEditScreen = ({ match, history }) => {
   const [name, setName] = useState('')
   const [location, setLocation] = useState(0)
   const [image, setImage] = useState('')
-  const [service, setService] = useState('')
-  const [feature, setFeature] = useState('')
+  const [description,setDescription] = useState('')
   const [food_menu, setFood_menu] = useState('')
   const [drinks_menu, setDrinks_menu] = useState(0)
   const [uploading, setUploading] = useState(false)
@@ -43,11 +42,11 @@ const RestaurantEditScreen = ({ match, history }) => {
       } else {
         setName(restaurant.name)
         setLocation(restaurant.location)
-        setService(restaurant.service)
         setImage(restaurant.image)
+        setDescription(restaurant.description)
         setDrinks_menu(restaurant.drinks_menu)
         setFood_menu(restaurant.food_menu)
-        setFeature(restaurant.feature)
+  
   
       }
     }
@@ -84,10 +83,9 @@ const RestaurantEditScreen = ({ match, history }) => {
         name,
         location,
         image,
-        feature,
-        service,
         food_menu,
         drinks_menu,
+        description
       })
     )
   }
@@ -148,39 +146,19 @@ const RestaurantEditScreen = ({ match, history }) => {
               <Form.Label>Food Menu</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter FOod'
+                placeholder='Enter Food'
                 value={food_menu}
                 onChange={(e) => setFood_menu(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='feature'>
-              <Form.Label>Feature</Form.Label>
+            <Form.Group controlId='description'>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter feature'
-                value={feature}
-                onChange={(e) => setFeature(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='service'>
-              <Form.Label>Services</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter Services'
-                value={service}
-                onChange={(e) => setService(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='location'>
-              <Form.Label>Location</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter location'
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                placeholder='Enter description'
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

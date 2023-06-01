@@ -57,50 +57,6 @@ const HomeScreen = ({ match }) => {
         </>
       )}
 
-      {/* xxdx */}
-      <h1>Favourite Restaurants</h1>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
-      ) : (
-        <>
-          <Row>
-            {foods.map((food) => (
-              <Col key={food._id} sm={12} md={6} lg={4} xl={3}>
-                <Food food={food} />
-              </Col>
-            ))}
-          </Row>
-          <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ''}
-          />
-        </>
-      )}
-{/* xxx */}
-<h1>Favourite Bars</h1>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
-      ) : (
-        <>
-          <Row>
-            {foods.map((food) => (
-              <Col key={food._id} sm={12} md={6} lg={4} xl={3}>
-                <Food food={food} />
-              </Col>
-            ))}
-          </Row>
-          <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ''}
-          />
-        </>
-      )}
     </>
   )
 }

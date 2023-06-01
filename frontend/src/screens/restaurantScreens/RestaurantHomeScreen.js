@@ -27,13 +27,13 @@ const RestaurantScreen = ({ match }) => {
   return (
     <>
       <Meta />
-      {/* {!keyword ? (
+      {!keyword ? (
         <RestaurantCarousel />
       ) : (
         <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
-      )} */}
+      )}
       <h1>Food Restaurants</h1>
       {loading ? (
         <Loader />

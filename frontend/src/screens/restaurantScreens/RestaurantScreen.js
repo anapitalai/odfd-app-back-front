@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button, Form,Container } from 'react-bootstrap'
 import Rating from '../../components/Rating'
 import Message from '../../components/Message'
 import Loader from '../../components/Loader'
 import Meta from '../../components/Meta'
+import MapComponent from '../../components/MapComponent'
 import {
   listRestaurantDetails,
   createRestaurantReview,
+  createRestaurantFavourite
 } from '../../actions/restaurantActions'
 import { RESTAURANT_CREATE_REVIEW_RESET } from '../../constants/restaurantConstants'
 
-const RestaurantScreen = ({ history, match }) => {
-  const [qty, setQty] = useState(1)
+const RestaurantScreen = ({ history, match}) => {
+  const [users_id, setUsers_Id] = useState('')
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-
   const dispatch = useDispatch()
 
   const restaurantDetails = useSelector((state) => state.restaurantDetails)
   const { loading, error, restaurant } = restaurantDetails
+
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -31,6 +34,16 @@ const RestaurantScreen = ({ history, match }) => {
     error: errorRestaurantReview,
   } = restaurantReviewCreate
 
+  const restaurantFavouriteCreate = useSelector((state) => state.restaurantFavouriteCreate)
+  const {
+    success: successRestaurantFavourite,
+    loading: loadingRestaurantFavourite,
+    error: errorRestaurantFavourite,
+  } = restaurantFavouriteCreate
+  //logger
+  useEffect(()=>console.log(restaurantDetails),[restaurantDetails])
+  // useEffect(()=>console.log('test corner',[restaurant.location][0].coordinates[0]),[restaurant])
+
   useEffect(() => {
     if (successRestaurantReview) {
       setRating(0)
@@ -38,13 +51,11 @@ const RestaurantScreen = ({ history, match }) => {
     }
     if (!restaurant._id || restaurant._id !== match.params.id) {
       dispatch(listRestaurantDetails(match.params.id))
+  
       dispatch({ type: RESTAURANT_CREATE_REVIEW_RESET })
     }
   }, [dispatch, match, successRestaurantReview])
 
-  const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
-  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -55,6 +66,15 @@ const RestaurantScreen = ({ history, match }) => {
       })
     )
   }
+  const submitFavouriteHandler = (e) => {
+    e.preventDefault()
+    dispatch(
+      createRestaurantFavourite(match.params.id, {
+        users_id
+      })
+    )
+  }
+
 
   return (
     <>
@@ -68,12 +88,44 @@ const RestaurantScreen = ({ history, match }) => {
       ) : (
         <>
           <Meta title={restaurant.name} />
-          <Row>
-            <Col md={6}>
-              <Image src={restaurant.image} alt={restaurant.name} fluid />
-            </Col>
-            <Col md={3}>
-              <ListGroup variant='flush'>
+              
+      <Row>
+        <Col md={6}>
+        <Image src={restaurant.image} alt={restaurant.name} fluid />
+        <ListGroup>
+          <span>User: {restaurant.users_id}</span>
+        </ListGroup>
+       
+        {userInfo ? (
+                    <Form onSubmit={submitFavouriteHandler}>
+                      <Form.Group controlId='users_id'>
+                        <Form.Label>users_id</Form.Label>
+                        <Form.Control
+                          as='select'
+                          value={users_id}
+                          onChange={(e) => setRating(e.target.value)}
+                        >
+                          <option value=''>{restaurant.users_id}</option>
+                        </Form.Control>
+                      </Form.Group>
+                      <Button
+                        disabled={loadingRestaurantFavourite}
+                        type='submit'
+                        variant='primary'
+                      >
+                        Submit
+                      </Button>
+                    </Form>
+                  ) : (
+                    <Message>
+                      Please <Link to='/login'>sign in</Link> to write a review{' '}
+                    </Message>
+                  )}
+        
+        </Col>
+     
+        <Col md={6}>
+        <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h3>{restaurant.name}</h3>
                 </ListGroup.Item>
@@ -83,73 +135,20 @@ const RestaurantScreen = ({ history, match }) => {
                     text={`${restaurant.numReviews} reviews`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${restaurant.price}</ListGroup.Item>
+                     
+                      <ListGroup.Item>Map Location:{restaurant._id}
+                      </ListGroup.Item>  
+
                 <ListGroup.Item>
                   Description: {restaurant.description}
                 </ListGroup.Item>
               </ListGroup>
-            </Col>
-            <Col md={3}>
-              <Card>
-                <ListGroup variant='flush'>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>
-                        <strong>${restaurant.price}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {restaurant.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  {restaurant.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Qty</Col>
-                        <Col>
-                          <Form.Control
-                            as='select'
-                            value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
-                            {[...Array(restaurant.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )}
-
-                  <ListGroup.Item>
-                    <Button
-                      onClick={addToCartHandler}
-                      className='btn-block'
-                      type='button'
-                      disabled={restaurant.countInStock === 0}
-                    >
-                      Add To Cart
-                    </Button>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={6}>
-              <h2>Reviews</h2>
+        </Col>
+       
+      </Row>
+      <Row>
+      <Col md={4}>
+      <h2>Reviews</h2>
               {restaurant.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant='flush'>
                 {restaurant.reviews.map((review) => (
@@ -212,8 +211,16 @@ const RestaurantScreen = ({ history, match }) => {
                   )}
                 </ListGroup.Item>
               </ListGroup>
-            </Col>
-          </Row>
+
+      </Col>
+        <Col md={8}>
+          <MapComponent />
+          
+          
+
+        </Col>
+      </Row>
+
         </>
       )}
     </>

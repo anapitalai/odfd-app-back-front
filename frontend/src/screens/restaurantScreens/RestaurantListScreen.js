@@ -97,9 +97,8 @@ const RestaurantListScreen = ({ history, match }) => {
               <tr>
                 <th>ID</th>
                 <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
+                <th>DRINKS MENU</th>
+                <th>FOOD MENU</th>
                 <th></th>
               </tr>
             </thead>
@@ -108,9 +107,8 @@ const RestaurantListScreen = ({ history, match }) => {
                 <tr key={restaurant._id}>
                   <td>{restaurant._id}</td>
                   <td>{restaurant.name}</td>
-                  <td>${restaurant.price}</td>
-                  <td>{restaurant.category}</td>
-                  <td>{restaurant.brand}</td>
+                  <td>{restaurant.drinks_menu}</td>
+                  <td>{restaurant.food_menu}</td>
                   <td>
                     <LinkContainer to={`/admin/restaurantlist/${restaurant._id}/edit`}>
                       <Button variant='light' className='btn-sm'>

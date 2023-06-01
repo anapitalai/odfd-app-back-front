@@ -49,7 +49,7 @@ const importData = async () => {
 
 		//restaurants
 		const sampleRestaurants = restaurants.map((restaurant) => {
-			return { ...restaurant, user: adminUser };
+			return { ...restaurant, users_id: adminUser };
 		});
 
 		await Restaurant.insertMany(sampleRestaurants);
