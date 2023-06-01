@@ -11,8 +11,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 app.secret_key= 'acb5efac7654a9f927bf5206a8b52bad5e6eb52d'
-#app.config['MONGO_URI']="mongodb://202.1.39.189/odfd"
-app.config['MONGO_URI']="mongodb+srv://user:pw@nictc.ok4ic.mongodb.net/db?retryWrites=true&w=majority"
+##app.config['MONGO_URI']="mongodb://202.1.39.189/odfd"
+app.config['MONGO_URI']="mongodb+srv://odfd_user:odfdAt2023@nictc.ok4ic.mongodb.net/odfd?retryWrites=true&w=majority"
 
 # Set the Stable API version when creating a new client
 client = PyMongo(app)
