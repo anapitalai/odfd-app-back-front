@@ -30,11 +30,45 @@ def get():
 
 @app.route('/favourites',methods=['POST'])
 def predict_favourites():
+  """Function that performs restaurant recommendations for a user"""
+      
+    # Load Trained Model
       model = pickle.load(open('model/recommender_model.sav', 'rb'))
-      name=request.json['users_id']
-      print(name)
-      prediction = model.predict(name)
-      return jsonify({"results":prediction})
+      
+    # Access data from Db
+      data = pd.read_csv('raw_ids.csv')
+      data_names = pd.read_csv('raw.csv')
+      
+     # Dictionary key value item for restaurants  
+      rest_dict = data_names[['restaurant_names','restaurant_id']]
+      rest_dict = rest_dict.drop_duplicates()
+      rest_dict = rest_dict.set_index('restaurant_id')['restaurant_names'].to_dict()
+      
+      # Get the list of all restaurants in the dataset
+      all_restaurants = data['restaurant_id'].unique()
+      
+      # Filter the restaurants that the user has already rated
+      rated_restaurants = data[data['users_id'] == user_id]['restaurant_id'].values
+      unrated_restaurants = list(set(all_restaurants) - set(rated_restaurants))
+      
+      # Create a list to store the predicted ratings for unrated restaurants
+      predicted_ratings = []
+      
+      # Generate ratings predictions for unrated restaurants
+      for restaurant in unrated_restaurants:
+          predicted_rating = model.predict(user_id, restaurant).est
+          predicted_ratings.append((restaurant, predicted_rating))
+          
+      # Sort the predicted ratings in descending order
+      #predicted_ratings.sort(key=lambda x: x[1], reverse=True)
+      
+      # Sort the predicted ratings in descending order
+      predicted_ratings.sort(key=lambda x: x[1], reverse=True)
+      top_5 = np.array(predicted_ratings[0:6])
+      
+      # Create and return json
+      top_5 = json.dumps(list(top_5[:,0]))
+      return jsonify({"results:top_5"})
 
 # def createFavourites():
 #       id=db.favourites.insert_one({
